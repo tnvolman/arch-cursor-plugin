@@ -1,0 +1,20 @@
+{
+  "name": "arch",
+  "version": "0.1.0",
+  "description": "Theological and Scripture content review via the Arch ReviewRequest to ReviewResult API.",
+  "author": {
+    "name": "Michael McClanahan"
+  },
+  "keywords": ["arch", "theology", "scripture", "review", "mcp"],
+  "variables": {
+    "type": "object",
+    "properties": {
+      "ARCH_API_KEY": {
+        "type": "string",
+        "title": "Arch API Key",
+        "description": "API key for https://arch.tnvolman.com (sent as X-API-Key). Required for arch_review."
+      }
+    },
+    "required": ["ARCH_API_KEY"]
+  }
+}

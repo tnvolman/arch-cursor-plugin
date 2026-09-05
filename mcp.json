@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "arch": {
+      "command": "node",
+      "args": ["./server/index.mjs"],
+      "cwd": "./",
+      "env": {
+        "ARCH_API_KEY": "${ARCH_API_KEY}"
+      }
+    }
+  }
+}

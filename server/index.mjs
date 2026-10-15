@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 /**
- * Zero-dep stdio MCP server for Arch theological review.
- * Domain: ReviewRequest -> ReviewResult
+ * Zero-dep stdio MCP server for Arch theological review and offline KJV lookup.
+ * arch_review: ReviewRequest -> ReviewResult
  * Endpoint: POST https://arch.tnvolman.com/v1/review
  * Auth: X-API-Key from env ARCH_API_KEY
  * Fail closed: missing key or non-2xx -> MCP error (never invent ReviewResult).
+ * kjv_lookup: local public-domain KJV text. No key, no network, no charge.
  */
 
 import { createInterface } from "node:readline";
 import { stdin as input, stdout as output, stderr as log } from "node:process";
+import { lookupKjv } from "./kjv.mjs";
 
 const BASE_URL = "https://arch.tnvolman.com";
 const REVIEW_PATH = "/v1/review";
 const MAX_TEXT = 50000;
-const SERVER_INFO = { name: "arch", version: "1.0.0" };
+const SERVER_INFO = { name: "arch", version: "1.1.0" };
 const PROTOCOL_VERSION = "2024-11-05";
 
 const TOOL = {
@@ -43,6 +45,23 @@ const TOOL = {
       },
     },
     required: ["text"],
+  },
+};
+
+const KJV_TOOL = {
+  name: "kjv_lookup",
+  description:
+    "Look up a King James Version verse or same-chapter verse range from the bundled public-domain KJV text. Offline: no API key, no network call, and no charge. Accepts references such as \"John 3:16\", \"Romans 8:28-30\", numbered books (\"1 John 4:8\"), and common abbreviations (\"Jn 3:16\", \"Rom 8:28\", \"1 Cor 13:4\"). Returns the verse text only. This is not a theological review; use arch_review for that. Unknown books, chapters, and verses return an error.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      ref: {
+        type: "string",
+        description:
+          'Bible reference, for example "John 3:16" or "Romans 8:28-30".',
+      },
+    },
+    required: ["ref"],
   },
 };
 
@@ -171,6 +190,17 @@ async function callArchReview(args) {
   return toolOkContent(parsed);
 }
 
+function callKjvLookup(args) {
+  if (!args || typeof args.ref !== "string") {
+    return toolErrorContent(
+      'kjv_lookup requires ref (string), for example "John 3:16" or "Romans 8:28-30".'
+    );
+  }
+  const found = lookupKjv(args.ref);
+  if (!found.ok) return toolErrorContent(found.error);
+  return toolOkContent(found.result);
+}
+
 async function handle(msg) {
   if (!msg || typeof msg !== "object") return;
   const { id, method, params } = msg;
@@ -196,17 +226,21 @@ async function handle(msg) {
         okResult(id, {});
         break;
       case "tools/list":
-        okResult(id, { tools: [TOOL] });
+        okResult(id, { tools: [TOOL, KJV_TOOL] });
         break;
       case "tools/call": {
         const name = params && params.name;
         const args = (params && params.arguments) || {};
-        if (name !== "arch_review") {
-          okResult(id, toolErrorContent("Unknown tool: " + name));
+        if (name === "arch_review") {
+          const result = await callArchReview(args);
+          okResult(id, result);
           break;
         }
-        const result = await callArchReview(args);
-        okResult(id, result);
+        if (name === "kjv_lookup") {
+          okResult(id, callKjvLookup(args));
+          break;
+        }
+        okResult(id, toolErrorContent("Unknown tool: " + name));
         break;
       }
       default:

@@ -1,8 +1,8 @@
 {
   "name": "arch",
   "displayName": "Arch",
-  "version": "1.0.0",
-  "description": "Arch is a KJV-grounded theological review API that fails closed.",
+  "version": "1.1.0",
+  "description": "Paid Arch theological review (arch_review, $2.00 or less per review, fails closed) and a free offline King James lookup (kjv_lookup: no key, no charge). Skills: Check a sermon before publishing, Review a devotional, and Review church website pages. Website reviews cover the theology of the page text only, not design; one review per page, and a batch of more than 3 pages asks first.",
   "author": {
     "name": "Michael McClanahan"
   },
@@ -10,14 +10,15 @@
   "repository": "https://github.com/tnvolman/arch-cursor-plugin",
   "license": "MIT",
   "logo": "assets/logo.svg",
-  "keywords": ["arch", "theology", "scripture", "review", "mcp"],
+  "keywords": ["arch", "theology", "scripture", "review", "mcp", "kjv", "sermon", "devotional"],
+  "skills": "./skills/",
   "variables": {
     "type": "object",
     "properties": {
       "ARCH_API_KEY": {
         "type": "string",
         "title": "Arch API Key",
-        "description": "Your own Arch API key from https://arch.tnvolman.com. Sent as the X-API-Key header on POST /v1/review. Required for arch_review."
+        "description": "Your own Arch API key from https://arch.tnvolman.com. Sent as the X-API-Key header on POST /v1/review. Required for arch_review, which fails closed without it. Not used by kjv_lookup."
       }
     },
     "required": ["ARCH_API_KEY"]

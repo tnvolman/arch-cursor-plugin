@@ -1,45 +1,32 @@
 ---
 name: arch-review
 description: >-
-  Theological and Scripture content review via Arch (ReviewRequest to ReviewResult).
-  Use when the user asks to review sermons, devotionals, Bible teaching, doctrine,
-  or other faith content for theological soundness through Arch.
+  Run faith, Scripture, or doctrinal content through Arch before publishing it.
+  Use for sermons, devotionals, Bible teaching, or doctrine. Each paid review
+  costs $2.00 or less — do not call Arch for other text or to retry a failure.
 ---
 
 # Arch theological review
 
-## When to use
+Before publishing faith, Scripture, or doctrinal content, call the MCP tool `arch_review`. Report the verdict exactly as Arch returns it. If the tool errors, do not publish and do not invent a verdict.
 
-- User wants theological or Scripture-related content reviewed by Arch.
-- Draft sermons, devotionals, teaching notes, or doctrinal claims need a ReviewRequest to ReviewResult pass.
-- Prefer this skill over inventing a theological verdict locally.
+## Cost
 
-## When not to use
+Each paid review is **$2.00 or less**. Do not call Arch for copyediting, code, or other non-theological text. Do not retry a failed call hoping for a pass.
 
-- Non-theological copyediting, code review, or general writing feedback.
-- Billing setup, dashboard access, request-access flows, or admin APIs (not wrapped).
-- Live calls to any endpoint other than Arch POST /v1/review.
+## Call
 
-## How to run
+`arch_review` uses the plugin variable `ARCH_API_KEY` (each end user's own key, sent as `X-API-Key`).
 
-1. Ensure plugin variable ARCH_API_KEY is configured (Plugins then Configure).
-2. Call the MCP tool arch_review with a ReviewRequest:
-   - text (required string, at most 50000)
-   - max_tokens (optional number, default 1024)
-   - payment_method_id (optional, legacy)
-   - idempotency_key (optional; when set, server also sends Idempotency-Key header)
-3. Treat a successful tool payload as ReviewResult field names only:
-   - review
-   - passed
-   - suggestions
-   - charge_id
-   - billing_status
-   - meta with approved, flagged, rejected, total, chars, charged
-4. On MCP error (missing key, non-2xx, network): report the error. Never invent a ReviewResult or sample verdict text.
+- `text` (required, at most 50000 characters)
+- `max_tokens` (optional)
+- `payment_method_id` (optional)
+- `idempotency_key` (optional; also sent as the `Idempotency-Key` header)
 
-## Contract notes
+On success, report only the returned fields: `review`, `passed`, `suggestions`, `charge_id`, `billing_status`, and `meta`. Do not rewrite them into a different verdict.
 
-- Base URL: https://arch.tnvolman.com
-- Auth header: X-API-Key
-- Cost note: Arch bills about $2 per review (see product docs / billing_status).
-- Do not wrap /arch/request-access, billing setup, dashboard, POST /api/arch/review, admin, or api.arch.tnvolman.com.
+## Fail closed
+
+A missing `ARCH_API_KEY`, HTTP 401, 400, 402, 429, 503, any other non-2xx, or a network failure is an error. Do not publish. Do not fill in `passed`, `review`, or `suggestions`.
+
+The only endpoint is `POST https://arch.tnvolman.com/v1/review`.

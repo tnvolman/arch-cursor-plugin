@@ -1,8 +1,9 @@
 {
   "name": "arch-cursor-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Cursor Plugin wrapping Arch theological review API (ReviewRequest to ReviewResult).",
+  "description": "Cursor and Grok Bot plugin: Arch theological review via POST /v1/review.",
+  "license": "MIT",
   "main": "./server/index.mjs"
 }

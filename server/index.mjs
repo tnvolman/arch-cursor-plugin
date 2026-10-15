@@ -13,13 +13,13 @@ import { stdin as input, stdout as output, stderr as log } from "node:process";
 const BASE_URL = "https://arch.tnvolman.com";
 const REVIEW_PATH = "/v1/review";
 const MAX_TEXT = 50000;
-const SERVER_INFO = { name: "arch", version: "0.1.0" };
+const SERVER_INFO = { name: "arch", version: "1.0.0" };
 const PROTOCOL_VERSION = "2024-11-05";
 
 const TOOL = {
   name: "arch_review",
   description:
-    "Submit text for Arch theological/Scripture content review. Maps ReviewRequest to ReviewResult via POST /v1/review. Returns review, passed, suggestions, charge_id, billing_status, and meta (approved, flagged, rejected, total, chars, charged). Fail-closed on missing ARCH_API_KEY or non-2xx.",
+    "Review faith, Scripture, or doctrinal text before publishing it. POST /v1/review on https://arch.tnvolman.com. Returns only Arch's review, passed, suggestions, charge_id, billing_status, and meta. Each paid review costs $2.00 or less. Fails closed: missing ARCH_API_KEY or any non-2xx is an error, never a fabricated pass. Do not call for non-theological text.",
   inputSchema: {
     type: "object",
     properties: {
@@ -140,9 +140,18 @@ async function callArchReview(args) {
 
   const raw = await res.text();
   if (res.status < 200 || res.status >= 300) {
+    const hints = {
+      401: "bad API key",
+      400: "bad text",
+      402: "no payment method or payment declined",
+      429: "rate limit (60/minute)",
+      503: "upstream unavailable",
+    };
+    const hint = hints[res.status] ? " (" + hints[res.status] + ")" : "";
     return toolErrorContent(
       "Arch /v1/review returned HTTP " +
         res.status +
+        hint +
         ". Body: " +
         raw.slice(0, 2000) +
         ". No ReviewResult invented."

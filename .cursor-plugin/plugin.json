@@ -1,10 +1,15 @@
 {
   "name": "arch",
-  "version": "0.1.0",
-  "description": "Theological and Scripture content review via the Arch ReviewRequest to ReviewResult API.",
+  "displayName": "Arch",
+  "version": "1.0.0",
+  "description": "Theological review for faith, Scripture, and doctrine. One MCP tool calls POST /v1/review on arch.tnvolman.com and fails closed.",
   "author": {
     "name": "Michael McClanahan"
   },
+  "homepage": "https://arch.tnvolman.com",
+  "repository": "https://github.com/tnvolman/arch-cursor-plugin",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
   "keywords": ["arch", "theology", "scripture", "review", "mcp"],
   "variables": {
     "type": "object",
@@ -12,7 +17,7 @@
       "ARCH_API_KEY": {
         "type": "string",
         "title": "Arch API Key",
-        "description": "API key for https://arch.tnvolman.com (sent as X-API-Key). Required for arch_review."
+        "description": "Your own Arch API key from https://arch.tnvolman.com. Sent as the X-API-Key header on POST /v1/review. Required for arch_review."
       }
     },
     "required": ["ARCH_API_KEY"]

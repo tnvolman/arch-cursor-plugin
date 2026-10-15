@@ -38,9 +38,7 @@ The plugin stores only the variable name. The key stays in the client configurat
 
 ## Cost
 
-Every paid review is **$2.00 or less**. There is no subscription in this plugin. A call with no card on file, or a declined card, returns HTTP 402 and is not a free review.
-
-Do not call `arch_review` for non-theological text. A failed call is not a pass; do not retry it just to obtain one.
+Every paid review is **$2.00 or less**, charged at your tier: Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom. There is no subscription.
 
 ## Fail closed
 

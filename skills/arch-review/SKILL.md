@@ -12,7 +12,7 @@ Before publishing faith, Scripture, or doctrinal content, call the MCP tool `arc
 
 ## Cost
 
-Each paid review is **$2.00 or less**. Do not call Arch for copyediting, code, or other non-theological text. Do not retry a failed call hoping for a pass.
+Each paid review is **$2.00 or less** (Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom).
 
 ## Call
 

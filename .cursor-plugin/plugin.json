@@ -2,7 +2,7 @@
   "name": "arch",
   "displayName": "Arch",
   "version": "1.0.0",
-  "description": "Theological review for faith, Scripture, and doctrine. One MCP tool calls POST /v1/review on arch.tnvolman.com and fails closed.",
+  "description": "Arch is a KJV-grounded theological review API that fails closed.",
   "author": {
     "name": "Michael McClanahan"
   },

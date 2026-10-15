@@ -1,73 +1,77 @@
-# Arch Cursor Plugin
+# Arch
 
-Local Cursor Plugin that wraps the Arch theological review API as a single MCP tool (`arch_review`).
+Cursor and Grok Bot plugin that wraps the live Arch theological review API as one MCP tool, `arch_review`.
 
-**Domain:** `ReviewRequest` to `ReviewResult`
-**Endpoint:** `POST https://arch.tnvolman.com/v1/review`
-**Auth:** `X-API-Key` from plugin variable / env `ARCH_API_KEY`
+**Endpoint:** `POST https://arch.tnvolman.com/v1/review`  
+**Auth:** `X-API-Key` from the plugin variable `ARCH_API_KEY` (each end user supplies their own key)  
+**Homepage:** https://arch.tnvolman.com
 
-This package is a local scaffold for Cursor IDE. It is **not** published to the Cursor marketplace.
+## Install
 
-## What it does
+Install this repository as a Cursor or Grok Bot plugin (marketplace listing, or a local plugin directory that contains `.cursor-plugin/plugin.json`).
 
-- One MCP tool: `arch_review` — submit text, get Arch's ReviewResult.
-- Skill `arch-review` — when to use Arch for theological / Scripture content.
-- Fail closed: missing `ARCH_API_KEY` or non-2xx responses return an error; the server never invents a ReviewResult.
+The plugin starts a zero-dependency Node stdio server:
 
-## What it does not wrap
+```json
+{
+  "mcpServers": {
+    "arch": {
+      "command": "node",
+      "args": ["./server/index.mjs"],
+      "env": {
+        "ARCH_API_KEY": "${ARCH_API_KEY}"
+      }
+    }
+  }
+}
+```
 
-- `/arch/request-access`
-- Billing setup / dashboard
-- `POST /api/arch/review`
-- Admin APIs
-- `api.arch.tnvolman.com`
+Node.js 18 or newer is required (`fetch` is built in). There are no npm dependencies.
 
 ## Configure ARCH_API_KEY
 
-1. Install this directory as a local Cursor plugin (copy into `~/.cursor/plugins/local/arch`).
-2. In Cursor: **Plugins then Arch then Configure**.
+1. Get an API key at [arch.tnvolman.com](https://arch.tnvolman.com). A key is issued on that site; attach a card there before paid reviews.
+2. In the plugin dashboard, open **Plugins → Arch → Configure**.
 3. Set **Arch API Key** (`ARCH_API_KEY`).
-4. The value is substituted into `mcp.json` as `${ARCH_API_KEY}` and passed to the stdio server env.
 
-For manual smoke tests outside Cursor:
-
-```bash
-export ARCH_API_KEY="your-key"
-node ./server/index.mjs
-```
+The plugin stores only the variable name. The key stays in the client configuration and is passed to the server as `ARCH_API_KEY`.
 
 ## Cost
 
-Arch reviews are billed at about **$2 per review** (see `billing_status` / product billing). Idempotent retries use `idempotency_key` (also sent as `Idempotency-Key` header).
+Every paid review is **$2.00 or less**, charged at your tier: Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom. There is no subscription.
 
-## MCP tool: arch_review
+## Fail closed
 
-**Request (ReviewRequest)**
+`arch_review` returns an error, and never a made-up verdict, when:
+
+- `ARCH_API_KEY` is missing or empty
+- Arch returns any non-2xx status
+  - **401** bad API key
+  - **400** bad text
+  - **402** no payment method, or payment declined
+  - **429** rate limit (60 requests per minute)
+  - **503** upstream unavailable
+- the network fails, or a 2xx body is not JSON
+
+On an error, do not publish the content and do not invent `passed`, `review`, or `suggestions`.
+
+## Tool: arch_review
+
+Request:
 
 | Field | Required | Notes |
 | --- | --- | --- |
-| `text` | yes | string at most 50000 |
-| `max_tokens` | no | number, default 1024 |
+| `text` | yes | string, at most 50000 characters |
+| `max_tokens` | no | number |
 | `payment_method_id` | no | legacy |
-| `idempotency_key` | no | also sets `Idempotency-Key` header |
+| `idempotency_key` | no | also sent as the `Idempotency-Key` header |
 
-**Success (ReviewResult fields)**
+Success body fields: `review`, `passed`, `suggestions`, `charge_id`, `billing_status`, `meta`.
 
-`review`, `passed`, `suggestions`, `charge_id`, `billing_status`, `meta` (`approved`, `flagged`, `rejected`, `total`, `chars`, `charged`).
+## What this plugin does not do
 
-## Layout
+It does not call or wrap `/api/arch/review`, `/arch/request-access`, billing setup, the dashboard, admin or internal routes, or `api.arch.tnvolman.com`.
 
-```text
-arch-cursor-plugin/
-├── .cursor-plugin/plugin.json
-├── mcp.json
-├── package.json
-├── server/index.mjs
-├── skills/arch-review/SKILL.md
-├── README.md
-└── VERIFY.md
-```
+## License
 
-## Local prove
-
-See `VERIFY.md` for parse checks, `node --check`, MCP initialize + tools/list smoke, and local install copy.
+MIT. See [LICENSE](LICENSE).

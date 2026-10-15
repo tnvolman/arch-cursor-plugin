@@ -1,9 +1,12 @@
 {
   "name": "arch-cursor-plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "Cursor and Grok Bot plugin: Arch theological review via POST /v1/review.",
+  "description": "Cursor and Grok Bot plugin: paid Arch theological review and a free offline KJV lookup.",
   "license": "MIT",
-  "main": "./server/index.mjs"
+  "main": "./server/index.mjs",
+  "scripts": {
+    "test": "node --test"
+  }
 }

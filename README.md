@@ -1,10 +1,15 @@
 # Arch
 
-Cursor and Grok Bot plugin that wraps the live Arch theological review API as one MCP tool, `arch_review`.
+Cursor and Grok Bot plugin with two MCP tools:
 
-**Endpoint:** `POST https://arch.tnvolman.com/v1/review`  
-**Auth:** `X-API-Key` from the plugin variable `ARCH_API_KEY` (each end user supplies their own key)  
+- `arch_review` — paid theological review of faith, Scripture, or doctrinal text
+- `kjv_lookup` — free, offline King James verse lookup from text bundled in this plugin
+
+**Arch endpoint:** `POST https://arch.tnvolman.com/v1/review`  
+**Auth (arch_review only):** `X-API-Key` from the plugin variable `ARCH_API_KEY` (each end user supplies their own key)  
 **Homepage:** https://arch.tnvolman.com
+
+`kjv_lookup` does not use the key, does not call the network, and does not charge.
 
 ## Install
 
@@ -34,11 +39,26 @@ Node.js 18 or newer is required (`fetch` is built in). There are no npm dependen
 2. In the plugin dashboard, open **Plugins → Arch → Configure**.
 3. Set **Arch API Key** (`ARCH_API_KEY`).
 
-The plugin stores only the variable name. The key stays in the client configuration and is passed to the server as `ARCH_API_KEY`.
+The plugin stores only the variable name. The key stays in the client configuration and is passed to the server as `ARCH_API_KEY`. `arch_review` fails closed when the key is missing. `kjv_lookup` never reads it.
 
 ## Cost
 
-Every paid review is **$2.00 or less**, charged at your tier: Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom. There is no subscription.
+Every paid `arch_review` is **$2.00 or less**, charged at your tier: Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom. There is no subscription.
+
+`kjv_lookup` is free.
+
+## Skills
+
+Skills live in `skills/*/SKILL.md`.
+
+| Skill | What it does |
+| --- | --- |
+| Check a sermon before publishing | One `arch_review` of the sermon before it is published or preached. |
+| Review a devotional | One `arch_review` of a devotional, daily reading, or email devotion before it is published. |
+| Review church website pages | Fetch each page, or use text the user pastes. One `arch_review` per page. Arch reviews the theology of the text only, not design. Warn that each review costs $2, ask before any batch of more than 3 pages, then summarize the fixes. |
+| Arch theological review | The general review skill for other faith, Scripture, or doctrinal text. |
+
+A failed review is not retried, and a long text is not split into extra paid calls, unless the user agrees to another charge.
 
 ## Fail closed
 
@@ -55,6 +75,8 @@ Every paid review is **$2.00 or less**, charged at your tier: Starter $2.00, Gro
 
 On an error, do not publish the content and do not invent `passed`, `review`, or `suggestions`.
 
+`kjv_lookup` is separate. A bad reference returns an error and no verse text. It does not change `arch_review`.
+
 ## Tool: arch_review
 
 Request:
@@ -68,10 +90,40 @@ Request:
 
 Success body fields: `review`, `passed`, `suggestions`, `charge_id`, `billing_status`, `meta`.
 
+## Tool: kjv_lookup
+
+Offline lookup of the public-domain King James Version (1769). No network call, no API key, and no charge. It returns verse wording only. It does not review theology; use `arch_review` for that.
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `ref` | yes | `"John 3:16"`, a same-chapter range such as `"Romans 8:28-30"`, a numbered book such as `"1 John 4:8"`, or a common abbreviation such as `"Jn 3:16"`, `"Rom 8:28"`, or `"1 Cor 13:4"` |
+
+Success fields: `reference`, `translation`, `edition`, `book`, `chapter`, `verse_start`, `verse_end`, and `verses` (`verse`, `text`).
+
+A reference that cannot be read, an unknown book, a missing chapter, or a missing verse returns a clear error. Ranges stay inside one chapter.
+
+### KJV text source
+
+Bundled file: `server/data/kjv.json` (**4,248,786 bytes**). 66 books, 31,102 verses, no Apocrypha.
+
+The text is the 1769 King James Version, which is in the public domain. It comes from [farskipper/kjv](https://github.com/farskipper/kjv) `json/verses-1769.json` at commit `8f06584d580a767425d7d4b4c314b967e6d45ab5`. That repository's [LICENSE](https://github.com/farskipper/kjv/blob/master/LICENSE) is The Unlicense, a public-domain dedication with no license restrictions, and its README says "Public Domain."
+
+This plugin stores a compact copy of that verse text. A leading `#` paragraph marker was removed from verses that had one. Words the source marks as italics stay in square brackets, for example `[his]`. The source titles Song of Solomon as "Solomon's Song"; lookup accepts both, and the book name it returns is "Song of Solomon".
+
+## Tests
+
+```sh
+node --test
+```
+
+`npm test` runs the same command. The tests do not call Arch.
+
 ## What this plugin does not do
 
 It does not call or wrap `/api/arch/review`, `/arch/request-access`, billing setup, the dashboard, admin or internal routes, or `api.arch.tnvolman.com`.
 
+`kjv_lookup` does not call Arch. `arch_review` reviews theology of text. It does not review website design, layout, or branding.
+
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE). The bundled King James text is public domain, as noted above.

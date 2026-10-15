@@ -1,8 +1,8 @@
 {
   "name": "arch",
   "displayName": "Arch",
-  "version": "1.1.0",
-  "description": "Paid Arch theological review (arch_review, $2.00 or less per review, fails closed) and a free offline King James lookup (kjv_lookup: no key, no charge). Skills: Check a sermon before publishing, Review a devotional, and Review church website pages. Website reviews cover the theology of the page text only, not design; one review per page, and a batch of more than 3 pages asks first.",
+  "version": "1.1.1",
+  "description": "Paid Arch theological review (arch_review, $2.00 or less per review, fails closed) and a free offline King James lookup (kjv_lookup: no key, no charge). Skills: Check a sermon before publishing, Review a devotional, and Review a Bible study or Sunday school lesson. The user pastes the lesson text. One review per lesson, each review costs $2, and a batch of more than 3 reviews asks first. Arch reviews the theology of the text only.",
   "author": {
     "name": "Michael McClanahan"
   },

@@ -55,7 +55,7 @@ Skills live in `skills/*/SKILL.md`.
 | --- | --- |
 | Check a sermon before publishing | One `arch_review` of the sermon before it is published or preached. |
 | Review a devotional | One `arch_review` of a devotional, daily reading, or email devotion before it is published. |
-| Review church website pages | Fetch each page, or use text the user pastes. One `arch_review` per page. Arch reviews the theology of the text only, not design. Warn that each review costs $2, ask before any batch of more than 3 pages, then summarize the fixes. |
+| Review a Bible study or Sunday school lesson | The user pastes the lesson text. One `arch_review` per lesson. Arch reviews the theology of the text only. Warn that each review costs $2, ask before more than 3 reviews in a batch, then summarize the fixes. |
 | Arch theological review | The general review skill for other faith, Scripture, or doctrinal text. |
 
 A failed review is not retried, and a long text is not split into extra paid calls, unless the user agrees to another charge.
@@ -122,7 +122,7 @@ node --test
 
 It does not call or wrap `/api/arch/review`, `/arch/request-access`, billing setup, the dashboard, admin or internal routes, or `api.arch.tnvolman.com`.
 
-`kjv_lookup` does not call Arch. `arch_review` reviews theology of text. It does not review website design, layout, or branding.
+`kjv_lookup` does not call Arch. `arch_review` reviews the theology of text only.
 
 ## License
 

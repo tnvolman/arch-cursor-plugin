@@ -3,7 +3,7 @@ name: review-a-devotional
 description: >-
   Review a devotional before publishing it. Use for a devotional, daily
   reading, email devotion, or short meditation. Call arch_review once on that
-  text. Each paid review costs $2.00 or less. If Arch errors, do not publish
+  text. Each paid review costs $2.00. If Arch errors, do not publish
   and do not invent a verdict.
 ---
 
@@ -13,7 +13,7 @@ Before the devotional is published, call `arch_review` once with its text. Repor
 
 ## Cost
 
-Each paid review is **$2.00 or less** (Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom). One devotional is one review. Do not split it into extra reviews, and do not retry a failed call, unless the user agrees to another charge.
+Each paid review is $2.00. Volume pricing for businesses is by agreement: api@tnvolman.com. One devotional is one review. Do not split it into extra reviews, and do not retry a failed call, unless the user agrees to another charge.
 
 ## Call
 

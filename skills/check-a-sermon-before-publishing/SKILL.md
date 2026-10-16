@@ -3,7 +3,7 @@ name: check-a-sermon-before-publishing
 description: >-
   Check a sermon before publishing or preaching it. Use when the user has a
   sermon, homily, or message they want reviewed first. Call arch_review once
-  on the sermon text. Each paid review costs $2.00 or less. If Arch errors,
+  on the sermon text. Each paid review costs $2.00. If Arch errors,
   do not publish and do not invent a verdict.
 ---
 
@@ -13,7 +13,7 @@ Before the sermon is published or preached, call `arch_review` once with the ser
 
 ## Cost
 
-Each paid review is **$2.00 or less** (Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom). One sermon is one review. Do not split the sermon into extra reviews, and do not retry a failed call, unless the user agrees to another charge.
+Each paid review is $2.00. Volume pricing for businesses is by agreement: api@tnvolman.com. One sermon is one review. Do not split the sermon into extra reviews, and do not retry a failed call, unless the user agrees to another charge.
 
 ## Call
 

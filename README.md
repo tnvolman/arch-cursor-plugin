@@ -47,7 +47,7 @@ This plugin is free. It calls the Arch API with your own key, and Arch bills eac
 
 ## Cost
 
-Every paid `arch_review` is **$2.00 or less**, charged at your tier: Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom. There is no subscription.
+Each paid review is $2.00. Volume pricing for businesses is by agreement: api@tnvolman.com.
 
 `kjv_lookup` is free.
 

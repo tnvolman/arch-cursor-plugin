@@ -17,7 +17,7 @@ Arch reviews the **theology of the text only**. It does not review teaching form
 
 ## Cost
 
-Each paid review costs **$2** (Starter $2.00; every paid review is $2.00 or less: Growth $1.75, Scale $1.50, Enterprise custom). One lesson is one review.
+Each paid review is $2.00. Volume pricing for businesses is by agreement: api@tnvolman.com. One lesson is one review.
 
 Warn that each review costs $2 before you call Arch.
 

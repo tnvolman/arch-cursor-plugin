@@ -3,7 +3,7 @@ name: arch-review
 description: >-
   Run faith, Scripture, or doctrinal content through Arch before publishing it.
   Use for sermons, devotionals, Bible teaching, or doctrine. Each paid review
-  costs $2.00 or less — do not call Arch for other text or to retry a failure.
+  costs $2.00 — do not call Arch for other text or to retry a failure.
 ---
 
 # Arch theological review
@@ -12,7 +12,7 @@ Before publishing faith, Scripture, or doctrinal content, call the MCP tool `arc
 
 ## Cost
 
-Each paid review is **$2.00 or less** (Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom).
+Each paid review is $2.00. Volume pricing for businesses is by agreement: api@tnvolman.com.
 
 ## Call
 

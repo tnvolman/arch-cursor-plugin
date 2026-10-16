@@ -41,6 +41,10 @@ Node.js 18 or newer is required (`fetch` is built in). There are no npm dependen
 
 The plugin stores only the variable name. The key stays in the client configuration and is passed to the server as `ARCH_API_KEY`. `arch_review` fails closed when the key is missing. `kjv_lookup` never reads it.
 
+## Pricing
+
+This plugin is free. It calls the Arch API with your own key, and Arch bills each review.
+
 ## Cost
 
 Every paid `arch_review` is **$2.00 or less**, charged at your tier: Starter $2.00, Growth $1.75, Scale $1.50, Enterprise custom. There is no subscription.
@@ -123,6 +127,19 @@ node --test
 It does not call or wrap `/api/arch/review`, `/arch/request-access`, billing setup, the dashboard, admin or internal routes, or `api.arch.tnvolman.com`.
 
 `kjv_lookup` does not call Arch. `arch_review` reviews the theology of text only.
+
+## Data
+
+Review text is never used for AI training.
+
+## Legal
+
+- [Terms of Service](TODO_TERMS_URL) — placeholder `TODO_TERMS_URL`
+- [Privacy Policy](TODO_PRIVACY_URL) — placeholder `TODO_PRIVACY_URL`
+
+## Support
+
+Contact `TODO_SUPPORT_EMAIL`.
 
 ## License
 

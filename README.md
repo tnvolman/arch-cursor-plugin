@@ -130,16 +130,16 @@ It does not call or wrap `/api/arch/review`, `/arch/request-access`, billing set
 
 ## Data
 
-Review text is never used for AI training.
+Review text is sent to the Arch API for review, and Arch does not use it to train AI models. See the [Privacy Policy](https://arch.tnvolman.com/privacy) for which services process it.
 
 ## Legal
 
-- [Terms of Service](TODO_TERMS_URL) — placeholder `TODO_TERMS_URL`
-- [Privacy Policy](TODO_PRIVACY_URL) — placeholder `TODO_PRIVACY_URL`
+- [Terms of Service](https://arch.tnvolman.com/terms)
+- [Privacy Policy](https://arch.tnvolman.com/privacy)
 
 ## Support
 
-Contact `TODO_SUPPORT_EMAIL`.
+Contact [api@tnvolman.com](mailto:api@tnvolman.com).
 
 ## License
 

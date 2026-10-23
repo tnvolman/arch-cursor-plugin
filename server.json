@@ -15,7 +15,7 @@
       "registryType": "mcpb",
       "identifier": "https://github.com/tnvolman/arch-cursor-plugin/releases/download/v1.1.1/arch.mcpb",
       "version": "1.1.1",
-      "fileSha256": "fcf6c9084460d5106ac8960c0460027eb61e0deb8e447a066e785c0c7e38a9a3",
+      "fileSha256": "940eaf06fc2573319a51ba2a80b108eac1fbc88740296d6617cd7f2a63cbace1",
       "transport": {
         "type": "stdio"
       },

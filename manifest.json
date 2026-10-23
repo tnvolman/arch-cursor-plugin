@@ -38,16 +38,7 @@
       }
     }
   },
-  "tools": [
-    {
-      "name": "arch_review",
-      "description": "Paid theological review of faith, Scripture, or doctrinal text. Requires an Arch API key. Fails closed."
-    },
-    {
-      "name": "kjv_lookup",
-      "description": "Free offline King James verse lookup from the bundled public-domain text. No API key and no network."
-    }
-  ],
+  "tools_generated": true,
   "user_config": {
     "arch_api_key": {
       "type": "string",

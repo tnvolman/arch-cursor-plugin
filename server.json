@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.tnvolman/arch-cursor-plugin",
+  "title": "Arch theological review",
+  "description": "Paid theological review of faith text (arch_review) plus free offline KJV verse lookup (kjv_lookup).",
+  "repository": {
+    "url": "https://github.com/tnvolman/arch-cursor-plugin",
+    "source": "github",
+    "id": "1358292659"
+  },
+  "version": "1.1.1",
+  "websiteUrl": "https://arch.tnvolman.com",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/tnvolman/arch-cursor-plugin/releases/download/v1.1.1/arch.mcpb",
+      "version": "1.1.1",
+      "fileSha256": "fcf6c9084460d5106ac8960c0460027eb61e0deb8e447a066e785c0c7e38a9a3",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ARCH_API_KEY",
+          "description": "Arch API key, required for arch_review (paid). kjv_lookup works without it.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

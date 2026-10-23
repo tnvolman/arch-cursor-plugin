@@ -1,0 +1,26 @@
+# Stdio server config for Smithery. This file is not a registry submission.
+# arch_review reads ARCH_API_KEY. kjv_lookup does not.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - ARCH_API_KEY
+    properties:
+      ARCH_API_KEY:
+        type: string
+        title: Arch API Key
+        description: >-
+          Secret Arch API key for arch_review. Get one at
+          https://arch.tnvolman.com/#access. The server sends it as the
+          X-API-Key header on POST /v1/review. kjv_lookup does not use it.
+  commandFunction: |-
+    (config) => ({
+      command: "node",
+      args: ["server/index.mjs"],
+      env: {
+        ARCH_API_KEY: config.ARCH_API_KEY
+      }
+    })
+  exampleConfig:
+    ARCH_API_KEY: your-arch-api-key

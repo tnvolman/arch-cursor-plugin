@@ -1,0 +1,60 @@
+{
+  "manifest_version": "0.3",
+  "name": "arch",
+  "display_name": "Arch theological review",
+  "version": "1.1.1",
+  "description": "Paid theological review of faith text, plus a free offline KJV verse lookup.",
+  "long_description": "Two tools. `arch_review` sends sermon, devotional, or Bible-study text to the Arch API and returns a review with suggestions. Each paid review costs $2.00 or less and needs an Arch API key from https://arch.tnvolman.com/#access. If the key is missing or the API errors, it returns an error and never a made-up pass. `kjv_lookup` returns King James verses from a bundled offline copy, with no key and no network.",
+  "author": {
+    "name": "Michael McClanahan",
+    "email": "api@tnvolman.com",
+    "url": "https://arch.tnvolman.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tnvolman/arch-cursor-plugin"
+  },
+  "homepage": "https://arch.tnvolman.com",
+  "documentation": "https://arch.tnvolman.com/#access",
+  "support": "https://github.com/tnvolman/arch-cursor-plugin/issues",
+  "icon": "assets/logo.png",
+  "keywords": ["bible", "kjv", "theology", "church", "content-review", "christian"],
+  "license": "MIT",
+  "privacy_policies": ["https://arch.tnvolman.com/privacy"],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.mjs"],
+      "env": {
+        "ARCH_API_KEY": "${user_config.arch_api_key}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "arch_review",
+      "description": "Paid theological review of faith, Scripture, or doctrinal text. Requires an Arch API key. Fails closed."
+    },
+    {
+      "name": "kjv_lookup",
+      "description": "Free offline King James verse lookup from the bundled public-domain text. No API key and no network."
+    }
+  ],
+  "user_config": {
+    "arch_api_key": {
+      "type": "string",
+      "title": "Arch API Key",
+      "description": "Your Arch API key from https://arch.tnvolman.com/#access. Required for arch_review, which sends it as the X-API-Key header and fails closed without it. Not used by kjv_lookup.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

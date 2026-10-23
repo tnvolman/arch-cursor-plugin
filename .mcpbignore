@@ -1,0 +1,4 @@
+# Registry metadata records this bundle's sha256, so it cannot be inside the bundle.
+server.json
+# Tests are not needed to run the server.
+test/

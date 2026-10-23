@@ -33,9 +33,15 @@ The plugin starts a zero-dependency Node stdio server:
 
 Node.js 18 or newer is required (`fetch` is built in). There are no npm dependencies.
 
+## Get an Arch API key
+
+Arch does not publish a separate API-key page. `https://arch.tnvolman.com/api-key` is not a page. The key form is on the homepage: [Get your API key](https://arch.tnvolman.com/#access). The [API docs](https://arch.tnvolman.com/docs) quick start points at that same page.
+
+Submit your name, email, and privacy consent. The page issues a key immediately and shows it once; a copy is also emailed. Attach a card from the link on that result, or later from the [developer dashboard](https://arch.tnvolman.com/arch/dashboard) (email magic link), before a paid review.
+
 ## Configure ARCH_API_KEY
 
-1. Get an API key at [arch.tnvolman.com](https://arch.tnvolman.com). A key is issued on that site; attach a card there before paid reviews.
+1. Get a key at [arch.tnvolman.com/#access](https://arch.tnvolman.com/#access), as described above.
 2. In the plugin dashboard, open **Plugins → Arch → Configure**.
 3. Set **Arch API Key** (`ARCH_API_KEY`).
 

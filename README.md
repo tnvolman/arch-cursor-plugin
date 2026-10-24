@@ -23,7 +23,6 @@ The plugin starts a zero-dependency Node stdio server. The launch command is the
     "arch": {
       "command": "${CURSOR_PLUGIN_ROOT}/bin/arch-mcp",
       "args": [],
-      "cwd": "./",
       "env": {
         "ARCH_API_KEY": "${ARCH_API_KEY}"
       }

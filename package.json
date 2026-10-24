@@ -9,6 +9,9 @@
   "bin": {
     "arch-mcp": "bin/arch-mcp"
   },
+  "engines": {
+    "node": ">=18.19"
+  },
   "scripts": {
     "test": "node --test"
   }

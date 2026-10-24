@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+/**
+ * Executable entry for the Arch MCP stdio server. Basename is arch-mcp.
+ * Runs server/index.mjs in this process. No dependencies.
+ */
+import "../server/index.mjs";

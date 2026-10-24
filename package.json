@@ -6,6 +6,9 @@
   "description": "Cursor and Grok Bot plugin: paid Arch theological review and a free offline KJV lookup.",
   "license": "MIT",
   "main": "./server/index.mjs",
+  "bin": {
+    "arch-mcp": "bin/arch-mcp"
+  },
   "scripts": {
     "test": "node --test"
   }

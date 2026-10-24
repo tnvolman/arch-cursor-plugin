@@ -15,14 +15,15 @@ Cursor and Grok Bot plugin with two MCP tools:
 
 Install this repository as a Cursor or Grok Bot plugin (marketplace listing, or a local plugin directory that contains `.cursor-plugin/plugin.json`).
 
-The plugin starts a zero-dependency Node stdio server:
+The plugin starts a zero-dependency Node stdio server. The launch command is the `arch-mcp` executable (`bin/arch-mcp`), which runs `server/index.mjs`:
 
 ```json
 {
   "mcpServers": {
     "arch": {
-      "command": "node",
-      "args": ["./server/index.mjs"],
+      "command": "${CURSOR_PLUGIN_ROOT}/bin/arch-mcp",
+      "args": [],
+      "cwd": "./",
       "env": {
         "ARCH_API_KEY": "${ARCH_API_KEY}"
       }
@@ -31,7 +32,9 @@ The plugin starts a zero-dependency Node stdio server:
 }
 ```
 
-Node.js 18 or newer is required (`fetch` is built in). There are no npm dependencies.
+The executable basename is `arch-mcp`. `package.json` maps that command name to `bin/arch-mcp`. Node.js 18 or newer is required (`fetch` is built in). There are no npm dependencies. `bin/arch-mcp` itself needs Node.js 18.19 or newer, which is when Node runs an extensionless file in a `"type": "module"` package.
+
+On Windows, `bin/arch-mcp` is a shebang script. Windows users can still run `node server/index.mjs` from the plugin directory. Use that same command on Node versions older than 18.19.
 
 ## Get an Arch API key
 

@@ -6,7 +6,7 @@
   "description": "Paid theological review of faith text, plus a free offline KJV verse lookup.",
   "long_description": "Two tools. `arch_review` sends sermon, devotional, or Bible-study text to the Arch API and returns a review with suggestions. Each paid review costs $2.00 or less and needs an Arch API key from https://arch.tnvolman.com/#access. If the key is missing or the API errors, it returns an error and never a made-up pass. `kjv_lookup` returns King James verses from a bundled offline copy, with no key and no network.",
   "author": {
-    "name": "Michael McClanahan",
+    "name": "Michael McClanahan (@tnvolman)",
     "email": "api@tnvolman.com",
     "url": "https://arch.tnvolman.com"
   },

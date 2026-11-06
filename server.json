@@ -22,7 +22,7 @@
       "environmentVariables": [
         {
           "name": "ARCH_API_KEY",
-          "description": "Arch API key, required for arch_review (paid). kjv_lookup works without it.",
+          "description": "Optional Arch API key for paid arch_review. kjv_lookup works without it.",
           "isRequired": false,
           "isSecret": true
         }

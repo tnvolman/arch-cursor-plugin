@@ -15,7 +15,7 @@ import { lookupKjv } from "./kjv.mjs";
 const BASE_URL = "https://arch.tnvolman.com";
 const REVIEW_PATH = "/v1/review";
 const MAX_TEXT = 50000;
-const SERVER_INFO = { name: "arch", version: "1.1.0" };
+const SERVER_INFO = { name: "arch", version: "1.1.1" };
 const PROTOCOL_VERSION = "2024-11-05";
 
 const TOOL = {
@@ -92,11 +92,28 @@ function toolOkContent(payload) {
   };
 }
 
+function isSafeHeaderValue(value) {
+  for (let i = 0; i < value.length; i++) {
+    const code = value.charCodeAt(i);
+    if (code === 0x09 || code === 0x20) continue;
+    if (code >= 0x21 && code <= 0x7e) continue;
+    if (code >= 0x80 && code <= 0xff) continue;
+    return false;
+  }
+  return true;
+}
+
 async function callArchReview(args) {
-  const apiKey = process.env.ARCH_API_KEY;
-  if (!apiKey || String(apiKey).trim() === "") {
+  const rawKey = process.env.ARCH_API_KEY;
+  const apiKey = typeof rawKey === "string" ? rawKey.trim() : "";
+  if (!apiKey) {
     return toolErrorContent(
       "ARCH_API_KEY is missing or empty. Configure it under Plugins -> Configure (variable ARCH_API_KEY). No ReviewResult invented."
+    );
+  }
+  if (!isSafeHeaderValue(apiKey)) {
+    return toolErrorContent(
+      "ARCH_API_KEY is not a usable header value. No ReviewResult invented."
     );
   }
 
@@ -149,12 +166,14 @@ async function callArchReview(args) {
   try {
     res = await fetch(BASE_URL + REVIEW_PATH, {
       method: "POST",
+      redirect: "error",
       headers,
       body: JSON.stringify(body),
     });
-  } catch (e) {
-    const msg = e && e.message ? e.message : String(e);
-    return toolErrorContent("Arch request failed (network): " + msg);
+  } catch {
+    return toolErrorContent(
+      "Arch request failed (network). No ReviewResult invented."
+    );
   }
 
   const raw = await res.text();

@@ -18,7 +18,7 @@
   "documentation": "https://arch.tnvolman.com/#access",
   "support": "https://github.com/tnvolman/arch-cursor-plugin/issues",
   "icon": "assets/logo.png",
-  "keywords": ["bible", "kjv", "theology", "church", "content-review", "christian"],
+  "keywords": ["bible", "kjv", "theology", "sunday-school", "content-review", "christian"],
   "license": "MIT",
   "privacy_policies": ["https://arch.tnvolman.com/privacy"],
   "compatibility": {
@@ -43,9 +43,9 @@
     "arch_api_key": {
       "type": "string",
       "title": "Arch API Key",
-      "description": "Your Arch API key from https://arch.tnvolman.com/#access. Required for arch_review, which sends it as the X-API-Key header and fails closed without it. Not used by kjv_lookup.",
+      "description": "Optional. Your Arch API key from https://arch.tnvolman.com/#access. Required only for arch_review (paid; fails closed without it). Not used by kjv_lookup.",
       "sensitive": true,
-      "required": true
+      "required": false
     }
   }
 }

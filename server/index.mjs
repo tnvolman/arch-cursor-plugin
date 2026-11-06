@@ -15,7 +15,7 @@ import { lookupKjv } from "./kjv.mjs";
 const BASE_URL = "https://arch.tnvolman.com";
 const REVIEW_PATH = "/v1/review";
 const MAX_TEXT = 50000;
-const SERVER_INFO = { name: "arch", version: "1.1.0" };
+const SERVER_INFO = { name: "arch", version: "1.1.1" };
 const PROTOCOL_VERSION = "2024-11-05";
 
 const TOOL = {

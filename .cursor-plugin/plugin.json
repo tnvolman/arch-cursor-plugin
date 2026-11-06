@@ -18,9 +18,8 @@
       "ARCH_API_KEY": {
         "type": "string",
         "title": "Arch API Key",
-        "description": "Your own Arch API key from https://arch.tnvolman.com. Sent as the X-API-Key header on POST /v1/review. Required for arch_review, which fails closed without it. Not used by kjv_lookup."
+        "description": "Optional. Your own Arch API key from https://arch.tnvolman.com/#access. Required only for arch_review (paid; fails closed without it). Not used by the free offline kjv_lookup tool."
       }
-    },
-    "required": ["ARCH_API_KEY"]
+    }
   }
 }
